@@ -9,6 +9,12 @@ set_property board_part digilentinc.com:zybo:part0:2.0 [current_project]
 add_files -norecurse hdl/rv_dmem.v
 add_files -norecurse hdl/rv_imem.v
 add_files -norecurse hdl/RVCore_FMUL.v
+add_files -norecurse hdl/MultNorm.v
+add_files -norecurse hdl/MiniRV_FMUL_Top.v
+add_files -norecurse hdl/Mant_Mult.v
+add_files -norecurse hdl/FPMul_unit.v
+add_files -norecurse hdl/FP_Mul.v
+
 
 update_compile_order -fileset sources_1
 
