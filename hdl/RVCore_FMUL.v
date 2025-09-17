@@ -20,8 +20,8 @@ module RVCore_FMUL (
 
     reg [1:0] state;
     localparam S_RUN=2'd0, S_LD1=2'd1, S_LD2=2'd2;
-    reg [4:0]  ld_rd_f;     // čuvamo destinaciju za FLW
-    reg [63:0] eff_addr;    // pomoćna adresa
+    reg [4:0]  ld_rd_f;     
+    reg [63:0] eff_addr;    
 
     // Decode
     wire [31:0] instr = imem_rdata;

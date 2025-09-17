@@ -28,7 +28,7 @@ module MultNorm(
     wire [24:0] mant_ext = {1'b0, mant_pre} + (round_up ? 25'd1 : 25'd0);
     wire carry = mant_ext[24];
     wire [22:0] mant_f = carry ? mant_ext[23:1] : mant_ext[22:0];
-    // If rounding overflows the mantissa, bump the biased exponent.
+    // If rounding overflows the mantissa, bump the biased exponent
     wire signed [11:0] e_bi2 = carry ? (e_bi_pre + 12'sd1) : e_bi_pre;
 
     wire signed [11:0] e_bi_s = e_bi2;
