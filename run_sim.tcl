@@ -95,6 +95,38 @@ if {[catch { add_wave -recursive /* }]} {
   info_msg "add_wave not available in this mode; proceeding."
 }
 
+# Color key FP signals already present in the wave
+proc color_and_style {sig} {
+  set done 0
+  if {[llength [info commands get_waves]]} {
+    set w [get_waves -quiet $sig]
+    if {[llength $w]} {
+      catch { set_property color pink $w }
+      catch { set_property radix hex $w }
+      set done 1
+    }
+  }
+  if {!$done && [llength [info commands get_wave_objects]]} {
+    set w [get_wave_objects -quiet $sig]
+    if {[llength $w]} {
+      catch { set_property color pink $w }
+      catch { set_property radix hex $w }
+      set done 1
+    }
+  }
+  if {!$done} {
+    # If not in the wave yet, add it with color
+    if {[catch { add_wave -color pink -radix hex $sig }]} {
+      catch { add_wave -color magenta -radix hex $sig }
+    }
+  }
+}
+
+color_and_style /tb_minirv_fmul/dut/u_core/fmul_A
+color_and_style /tb_minirv_fmul/dut/u_core/fmul_B
+color_and_style /tb_minirv_fmul/dut/u_core/fmul_out
+color_and_style /tb_minirv_fmul/dut/dmem_wdata
+
 # Ensure we start from time 0 if a prior run already completed
 catch { restart }
 

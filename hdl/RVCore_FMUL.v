@@ -16,7 +16,6 @@ module RVCore_FMUL (
 
     reg [63:0] xreg [0:31];
     reg [31:0] freg [0:31];
-    reg [63:0] eff_addr_tmp; // renamed to avoid duplicate declaration below
     reg [63:0] addr_calc; 
 
     reg [1:0] state;
@@ -54,11 +53,25 @@ module RVCore_FMUL (
     FPMul_unit u_fmul(.A(fmul_A), .B(fmul_B), .P(fmul_out));
 
     integer i;
+    // synthesis translate_off
+    initial i = 0;
+    // synthesis translate_on
     always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
-            pc <= 64'h0; halt_r <= 1'b0; dmem_we_r <= 1'b0;
+            pc <= 64'h0;
+            halt_r <= 1'b0;
+            dmem_we_r <= 1'b0;
+            dmem_addr_r <= 32'd0;
+            dmem_wdata_r <= 32'd0;
             state <= S_RUN;
-            // init regfile...
+            ld_rd_f <= 5'd0;
+            eff_addr <= 64'd0;
+            addr_calc <= 64'd0;
+            // Initialize register files to known values to avoid X propagation
+            for (i = 0; i < 32; i = i + 1) begin
+                xreg[i] <= 64'd0;
+                freg[i] <= 32'd0;
+            end
         end else if (!halt_r) begin
             dmem_we_r <= 1'b0;            // default
             case (state)

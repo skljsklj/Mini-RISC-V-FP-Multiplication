@@ -4,6 +4,9 @@ module rv_imem #(parameter WORDS=64) (
 );
     reg [31:0] mem [0:WORDS-1];
     integer i;
+    // synthesis translate_off
+    initial i = 0;
+    // synthesis translate_on
     initial begin
         // default NOP
         for (i=0;i<WORDS;i=i+1) mem[i] = 32'h00000013;

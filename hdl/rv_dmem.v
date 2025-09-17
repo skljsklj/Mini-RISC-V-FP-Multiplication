@@ -7,6 +7,9 @@ module rv_dmem #(parameter WORDS=1024, parameter BASE=32'h0000_1000) (
 );
     reg [31:0] mem [0:WORDS-1];
     integer i;
+    // synthesis translate_off
+    initial i = 0;
+    // synthesis translate_on
     initial begin
         for (i=0;i<WORDS;i=i+1) mem[i] = 32'h0;
         mem[(32'h0000_1000-BASE)>>2] = 32'h4000_0000; // 2.0
