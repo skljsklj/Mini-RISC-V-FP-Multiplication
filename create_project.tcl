@@ -15,6 +15,9 @@ add_files -norecurse hdl/Mant_Mult.v
 add_files -norecurse hdl/FPMul_unit.v
 add_files -norecurse hdl/FP_Mul.v
 
+add_files -norecurse tb/prog.hex
+add_files -norecurse tb/tb_minirv_fmul.v
+
 
 update_compile_order -fileset sources_1
 
